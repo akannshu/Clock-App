@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Alarm clock</title>
+    <style media="screen">
+      input{
+        font-size: 15px;
+      }
+    </style>
+    <script>
+    function alarm(){
+        var i = document.getElementById("hours").value;
+        var k = document.getElementById("minutes").value;
+        console.log(i,k);
+        if(i>23 || i<0 || k>59 || k<0){
+          alert('Enter valid time');
+        }
+        else{
+          sysfunc(i,k);
+        }
+      }
+      function sysfunc(i , k){
+        var dt = new Date();
+        var hrs = dt.getHours();
+        var min = dt.getMinutes();
+         if(hrs>i){
+           alert('alarm cannot be set in past');
+         }
+        else if(k<min){
+             i=i-1;
+             k = k+60;
+           }
+          else{
+            var x = k - min;
+            var y = i - hrs;
+            console.log(y+':'+x);
+            newfunc(y,x);
+          }
+        }
+      function newfunc(y,x){
+              setInterval(()=>{
+                 if(x===0){
+                   console.log('Time is up');
+                   exit();
+                   return;
+                 }
+                 else{
+                    alarm(y,x);
+                 }
+             },10000);
+            }
+      function exit(){
+        document.getElementById("hours").innerHTML = '';
+        document.getElementById("minutes").innerHTML = '';
+        window.open("https://www.youtube.com/watch?v=d37Ct1gHmsU","_self");
+      }
+    </script>
+  </head>
+  <body>
+    <input type="number" placeholder="hours" id="hours"/>
+    <input type="number" placeholder="minutes" id="minutes"/>
+    <button onclick="alarm()">Set Alarm</button>
+  </body>
+</html>
